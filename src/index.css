@@ -1,0 +1,181 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700;800&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: "Nunito Sans", sans-serif;
+}
+
+:root {
+  --font-primary: "Nunito Sans", sans-serif;
+
+  /* Font weight variants */
+  --font-light: 300;
+  --font-regular: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+  --font-extrabold: 800;
+  /* ===============================
+     PRIMARY BUTTON (Blue)
+  =============================== */
+  --color-primary-50: #eaf3fe;
+  --color-primary-100: #d4e7fc;
+  --color-primary-200: #a9d0fa;
+  --color-primary-300: #7eb9f7;
+  --color-primary-400: #529ef3;
+  --color-primary-500: #1476e4;
+  --color-primary-600: #0f5eb9;
+  --color-primary-700: #0b4a8e;
+  --color-primary-800: #07345f;
+  --color-primary-900: #041e33;
+
+  /* ===============================
+     PRIMARY FONT COLOR (Deep Blue)
+  =============================== */
+  --color-font-50: #e8ebef;
+  --color-font-100: #c5cbd3;
+  --color-font-200: #a1abb7;
+  --color-font-300: #7c8a9b;
+  --color-font-400: #58687f;
+  --color-font-500: #344563;
+  --color-font-600: #1d2944;
+  --color-font-700: #101c33;
+  --color-font-800: #08162a;
+  --color-font-900: #061325; /* Base */
+
+  /* ===============================
+     SCREEN BACKGROUND (White / Light Blue Tint)
+  =============================== */
+  --color-screen-50: #ffffff;
+  --color-screen-100: #fcfeff;
+  --color-screen-200: #f9fcfd; /* Base */
+  --color-screen-300: #eff7fb;
+  --color-screen-400: #e4f1f7;
+  --color-screen-500: #daecf3;
+  --color-screen-600: #cfe6f0;
+  --color-screen-700: #c5e0ec;
+  --color-screen-800: #bad9e8;
+  --color-screen-900: #b0d3e4;
+
+  /* ===============================
+     LINES & BORDERS (Light Blue Gray)
+  =============================== */
+  --color-border-50: #f4f8fb;
+  --color-border-100: #ebf2f8;
+  --color-border-200: #e1ebf4;
+  --color-border-300: #d7e4f0;
+  --color-border-400: #c7dbed; /* Base */
+  --color-border-500: #b2c9dd;
+  --color-border-600: #9bb5ca;
+  --color-border-700: #84a1b7;
+  --color-border-800: #6d8da4;
+  --color-border-900: #587992;
+
+  /* ===============================
+     DISABLED FONT (Grayish Blue)
+  =============================== */
+  --color-disable-font-50: #f4f5f6;
+  --color-disable-font-100: #e8eaec;
+  --color-disable-font-200: #d6d9dd;
+  --color-disable-font-300: #c2c6cc;
+  --color-disable-font-400: #a8b0b8;
+  --color-disable-font-500: #8e98a3;
+  --color-disable-font-600: #7b8592; /* Base */
+  --color-disable-font-700: #5e6875;
+  --color-disable-font-800: #424c57;
+  --color-disable-font-900: #262f39;
+
+  /* ===============================
+     DISABLED BUTTON (Soft Gray)
+  =============================== */
+  --color-disable-btn-50: #ffffff;
+  --color-disable-btn-100: #fcfcfc;
+  --color-disable-btn-200: #f9f9fa;
+  --color-disable-btn-300: #f6f6f7; /* Base */
+  --color-disable-btn-400: #f1f1f3;
+  --color-disable-btn-500: #ebecee;
+  --color-disable-btn-600: #e3e5e8;
+  --color-disable-btn-700: #d8dbdf;
+  --color-disable-btn-800: #cdd1d7;
+  --color-disable-btn-900: #c2c8cf;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-primary);
+  }
+  body {
+    @apply bg-gray-200;
+  }
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE & Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Remove number input arrows */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+}
+
+.primary-btn {
+  background-color: var(--color-primary-500); /* or your actual color */
+  color: #ffffff;
+  padding: 10px 25px; /* py-2 px-6 */
+  font-size: 16px;
+  border-radius: 10px;
+}
+
+.outlined-btn {
+  border: 1px solid #4b5059; /* gray-500 */
+  color: #000000;
+  background-color: transparent;
+  padding: 10px 25px; /* py-2 px-6 */
+  font-size: 16px;
+  border-radius: 10px;
+}
+
+.error {
+  font-size: 13px;
+  color: #ff0000;
+  padding-top: 8px;
+}
+
+input {
+  border: 0.5px solid #d1d5db; /* default border (gray-300 for example) */
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem; /* rounded-md */
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+/* Focus state */
+input:focus {
+  outline: none; /* removes default browser outline */
+  border-color: var(--color-primary-500); /* your brand primary color */
+  box-shadow: 0 0 0 0.5px var(--color-primary-500); /* focus ring */
+}
+
+input[type="radio"] {
+  outline: none;
+  box-shadow: none; /* disables extra ring if you want */
+  accent-color: var(--color-primary-500); /* changes both the dot and border */
+}
+
+.star {
+  color: red;
+  margin-left: 4px;
+}
