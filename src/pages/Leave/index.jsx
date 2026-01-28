@@ -1,21 +1,28 @@
 import React, { useState } from "react";
 import CustomTabs from "@/components/CustomTabs";
 import LeaveRequests from "./LeaveRequests";
+import LeaveSummary from "./LeaveSummary";
+import LeaveBalance from "./LeaveBalance";
 
 function Leave() {
   const leaveTypes = [
     {
       label: "Leave Requests",
-      value: "Leave_Requests",
+      value: "leave_requests",
       content: <LeaveRequests />,
     },
     {
       label: "Leave Summary  ",
-      value: "Leave_Summary  ",
-      content: "",
+      value: "leave_summary  ",
+      content: <LeaveSummary />,
+    },
+    {
+      label: "Leave Balance  ",
+      value: "leave_balance  ",
+      content: <LeaveBalance />,
     },
   ];
-  const [activeTab, setActiveTab] = useState("Leave_Requests");
+  const [activeTab, setActiveTab] = useState("leave_requests");
   return (
     <div className="w-full h-full">
       <CustomTabs

@@ -3,6 +3,7 @@ import {
   DialogBody,
   DialogFooter,
   DialogHeader,
+  Button,
 } from "@material-tailwind/react";
 import React, { useState } from "react";
 import CloseIcon from "@/assets/images/window-close.svg";
@@ -87,9 +88,8 @@ const CustomDialog = ({
         <div className="p-0 md:p-0 flex flex-col justify-center items-center w-full text-center font-semibold ">
           {icon && <div className="w-18 h-18 ">{icon}</div>}
           <div
-            className={`${
-              isMobile || fullwidth ? " w-full " : " w-[65%] "
-            } mt-4 text-lg`}
+            className={`${isMobile || fullwidth ? " w-full " : " w-[65%] "
+              } mt-4 text-lg`}
           >
             <div className="flex flex-col">
               {children}
@@ -136,13 +136,13 @@ const CustomDialog = ({
       {buttonList && (
         <DialogFooter>
           <div className="flex gap-3 flex-row justify-center items-center w-full pb-8 ">
-            {buttonList.map((button) => (
-              <>
+            {buttonList.map((button, index) => (
+              <React.Fragment key={index}>
                 {button.type === "link" ? (
                   <div
                     className={
                       " text-base text-right font-bold text-blue flex-1 cursor-pointer mr-2 " +
-                      button.color
+                      (button.color || "")
                     }
                     onClick={(e) => handleOnClick(button, e)}
                   >
@@ -150,26 +150,26 @@ const CustomDialog = ({
                   </div>
                 ) : (
                   <div
-                    className={`w-[calc(65%)] flex ${
-                      button.align === "LEFT"
+                    className={`${fullwidth ? " w-auto " : " w-[calc(65%)] "
+                      } flex ${button.align === "LEFT"
                         ? " justify-start "
                         : button.align === "RIGHT"
-                        ? " justify-end "
-                        : " justify-center "
-                    } `}
+                          ? " justify-end "
+                          : " justify-center "
+                      } `}
                   >
-                    <CustomButton
-                      type={button.type}
+                    <Button
                       variant={button.type === "button" ? "outlined" : "filled"}
-                      fullWidth={true}
-                      className={`capitalize ${button.className}`}
+                      fullWidth={!fullwidth}
+                      className={`capitalize ${button.className || ""}`}
                       onClick={(e) => handleOnClick(button, e)}
-                      label={button.label}
-                      size={button.size}
-                    />
+                      size={button.size || "md"}
+                    >
+                      {button.label}
+                    </Button>
                   </div>
                 )}
-              </>
+              </React.Fragment>
             ))}
           </div>
         </DialogFooter>
