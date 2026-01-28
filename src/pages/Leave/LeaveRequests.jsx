@@ -1,7 +1,9 @@
 import CustomTable from "@/components/Table/CustomTable";
 import { createColumnHelper } from "@tanstack/react-table";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import InfoIcon from "@/assets/icons/infoicon.svg?react";
+import CustomSelect from "@/components/CustomSelect";
+import SearchIcon from "@/assets/icons/search.svg?react";
 
 const columnHelper = createColumnHelper();
 
@@ -202,14 +204,60 @@ const columns = [
   }),
 ];
 
+const leaveOptions = [
+  { label: "Casual Leave", value: "casual_leave" },
+  { label: "Sick Leave", value: "sick_leave" },
+  { label: "Privileged Leave", value: "privileged_leave" },
+  { label: "Paternity Leave", value: "paternity_leave" },
+];
+
+const statusOptions = [
+  { label: "All", value: "all" },
+  { label: "Pending", value: "pending" },
+  { label: "Approved", value: "approved" },
+  { label: "Rejected", value: "rejected" },
+];
+
 function LeaveRequests() {
+  const [selectedLeave, setSelectedLeave] = useState([]);
+  const [selectedStatus, setSelectedStatus] = useState({});
+
   const data = useMemo(() => mockData, []);
 
+  const filters = (
+    <>
+      <CustomSelect
+        options={leaveOptions}
+        selected={selectedLeave}
+        setSelected={setSelectedLeave}
+        isMultiSelect
+        placeholder="Select Leave"
+      />
+
+      <CustomSelect
+        options={statusOptions}
+        selected={selectedStatus}
+        setSelected={setSelectedStatus}
+        placeholder="Select Status"
+      />
+
+      <div className="relative">
+        <div className="absolute inset-y-0 left-0 flex items-center pl-2.5 pointer-events-none">
+          <SearchIcon className="w-3.5 h-3.5 fill-gray-600" />
+        </div>
+        <input
+          type="text"
+          className="block w-full p-1.5 pl-8 min-h-[2.5em] text-sm font-medium text-gray-900 border border-gray-300 rounded-lg bg-white focus:ring-brand-primary placeholder-gray-400"
+          placeholder="Search"
+        />
+      </div>
+    </>
+  );
   return (
     <div className="w-full flex-1 px-8 py-10 overflow-y-auto">
       {/* Filter applied   and Action Nedded  */}
       <div className="flex justify-between items-stretch gap-5">
-        <div className="w-[60%] flex flex-col gap-1 bg-brand-100 p-4 rounded-lg">
+        <div className="flex-1 flex flex-col gap-0.5 bg-brand-100 px-4 py-3 rounded-lg">
           <p className="text-sm font-semibold text-black">
             Filters applied successfully:{" "}
           </p>
@@ -218,14 +266,14 @@ function LeaveRequests() {
             State-Maharashtra / Current Period: Jan 2024 - Jan 2025
           </p>
         </div>
-        <div className="w-[40%] flex items-end gap-2 justify-end pb-1 text-gray-800 text-[0.8em]">
+        <div className="w-[35%] shrink-0 flex items-end gap-2 justify-end pb-1 text-gray-800 text-[0.8em]">
           <InfoIcon className="w-4 h-4 mb-[3px]" />
           <span>Action needed : Check Status 12 Leave Requests Pending</span>
         </div>
       </div>
 
-      <div className="w-full h-full mt-6 bg-white rounded-xl">
-        <CustomTable columns={columns} data={data} />
+      <div className="w-full h-full mt-6 bg-white rounded-lg border border-gray-300">
+        <CustomTable columns={columns} data={data} filters={filters} />
       </div>
     </div>
   );
