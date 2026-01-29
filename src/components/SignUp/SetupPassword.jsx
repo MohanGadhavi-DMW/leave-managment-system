@@ -50,7 +50,7 @@ const SetupPassword = () => {
 
   useEffect(() => {
     if (is_register == undefined) navigate("/login");
-  }, [])
+  }, []);
 
   useEffect(() => {
     const map = {};
@@ -78,7 +78,11 @@ const SetupPassword = () => {
         password,
       };
 
-      const response = await dispatch(is_register ? ProfileAction.SetPassword(payload) : ProfileAction.ResetPassword(payload));
+      const response = await dispatch(
+        is_register
+          ? ProfileAction.SetPassword(payload)
+          : ProfileAction.ResetPassword(payload),
+      );
 
       // ProfileAction now returns the normalized result object (not raw axios status).
       // Check for common success indicators (access_token, data.token, next_step, token_type, or status === 'success')
@@ -86,9 +90,9 @@ const SetupPassword = () => {
       if (response?.status === "success" && response?.data == "success") {
         const dataToPass = {
           ...signupData,
-          message: is_register ?
-            "You are successfully registered, Please login !" :
-            "Password has been changed successfuly, please login with your new Password",
+          message: is_register
+            ? "You are successfully registered, Please login !"
+            : "Password has been changed successfuly, please login with your new Password",
           password,
         };
         navigate("/login", { state: dataToPass });
@@ -106,10 +110,12 @@ const SetupPassword = () => {
           <h2 className="text-2xl font-semibold mb-4">Setup password</h2>
 
           {/* SUCCESS ALERT */}
-          {is_register && <div className="mb-5 flex items-start justify-between rounded-md border border-green-200 bg-[#E6FFF4] px-4 py-3 text-sm text-[#7E8795] w-80">
-            <span>Your email address has been successfully verified</span>
-            <span className="font-bold cursor-pointer">×</span>
-          </div>}
+          {is_register && (
+            <div className="mb-5 flex items-start justify-between rounded-md border border-green-200 bg-[#E6FFF4] px-4 py-3 text-sm text-[#7E8795] w-80">
+              <span>Your email address has been successfully verified</span>
+              <span className="font-bold cursor-pointer">×</span>
+            </div>
+          )}
 
           <div className="space-y-5">
             {/* PASSWORD */}
@@ -149,12 +155,14 @@ const SetupPassword = () => {
                         <li key={r.id} className="flex gap-3 items-start">
                           {/* SINGLE DOT (NO DOUBLE COLOR) */}
                           <span
-                            className={`mt-1.5 h-2.5 w-2.5 rounded-full ${ok ? "bg-green-500" : "bg-gray-300"
-                              }`}
+                            className={`mt-1.5 h-2.5 w-2.5 rounded-full ${
+                              ok ? "bg-green-500" : "bg-gray-300"
+                            }`}
                           />
                           <span
-                            className={`text-sm ${ok ? "text-[#02AA7F]" : "text-gray-400"
-                              }`}
+                            className={`text-sm ${
+                              ok ? "text-[#02AA7F]" : "text-gray-400"
+                            }`}
                           >
                             {r.label}
                           </span>
@@ -195,10 +203,11 @@ const SetupPassword = () => {
             {/* NEXT BUTTON */}
             <button
               disabled={!allValid || !passwordsMatch}
-              className={`w-80 rounded-md py-2.5 text-sm font-medium text-white ${allValid && passwordsMatch
-                ? "bg-brand-primary hover:bg-brand-primary-400"
-                : "bg-blue-200 cursor-not-allowed"
-                }`}
+              className={`w-80 rounded-md py-2.5 text-sm font-medium text-white ${
+                allValid && passwordsMatch
+                  ? "bg-brand-primary hover:bg-brand-primary-400"
+                  : "bg-brand-200 cursor-not-allowed"
+              }`}
               onClick={handelSetPassword}
             >
               Next
