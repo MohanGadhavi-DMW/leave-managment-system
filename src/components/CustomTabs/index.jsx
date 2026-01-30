@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Tab,
   TabPanel,
@@ -7,11 +7,17 @@ import {
   TabsHeader,
 } from "@material-tailwind/react";
 
-function CustomTabs({ tabList = [], activeTab, setActiveTab }) {
+function CustomTabs({
+  tabList = [],
+  activeTab = {},
+  setActiveTab,
+  bodyClassName = "",
+  wrapperClassName = "",
+}) {
   return (
     <Tabs
-      value={activeTab}
-      className="h-full flex flex-col [&>nav]:w-full overflow-visible"
+      value={activeTab?.value}
+      className={`h-full flex flex-col [&>nav]:w-full overflow-visible ${wrapperClassName}`}
     >
       <TabsHeader
         className="p-0 w-full h-[3em] rounded-none bg-opacity-100 bg-white px-5"
@@ -20,29 +26,29 @@ function CustomTabs({ tabList = [], activeTab, setActiveTab }) {
             "bg-transparent border-b-[0.2em] border-brand-primary rounded-none shadow-none ml-2 ",
         }}
       >
-        {tabList.map(({ label, value }) => (
+        {tabList.map((tab) => (
           <Tab
-            key={value}
-            value={value}
-            onClick={() => setActiveTab(value)}
+            key={tab?.value}
+            value={tab?.value}
+            onClick={() => setActiveTab(tab)}
             className={`w-[10em] ${
-              activeTab === value ? "text-black font-semibold" : ""
+              activeTab?.value === tab?.value ? "text-black font-semibold" : ""
             }`}
           >
-            {label}
+            {tab?.label}
           </Tab>
         ))}
       </TabsHeader>
-      <TabsBody className="h-full overflow-y-auto">
-        {tabList.map(({ value, content }) => (
+      <TabsBody className={`h-full overflow-y-auto ${bodyClassName}`}>
+        {tabList.map((tab) => (
           <TabPanel
-            key={value}
-            value={value}
+            key={tab.value}
+            value={tab.value}
             className={`p-0 h-full ${
-              activeTab === value ? "block" : "!hidden"
+              activeTab?.value === tab?.value ? "block" : "!hidden"
             }`}
           >
-            {content}
+            {tab.content}
           </TabPanel>
         ))}
       </TabsBody>

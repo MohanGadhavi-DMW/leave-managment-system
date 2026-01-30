@@ -44,14 +44,7 @@ const Sidebar = () => {
   /* =========================
    SIDEBAR ITEM
 ========================= */
-  const SidebarItem = ({
-    icon: Icon,
-    label,
-    skey,
-    to,
-    collapsed,
-    isActive,
-  }) => {
+  const SidebarItem = ({ icon: Icon, label, skey, to }) => {
     return (
       <NavLink
         to={to}
@@ -65,7 +58,7 @@ const Sidebar = () => {
           // navigate(to);
         }}
         // title={collapsed ? label : ""}
-        className={"flex flex-col items-center  text-center group"}
+        className={"w-full px-2 flex flex-col items-center  text-center group"}
         // ${collapsed ? "w-12 justify-center" : "w-full gap-3 "}
       >
         {({ isActive: activeMenu }) => (
@@ -82,19 +75,19 @@ const Sidebar = () => {
               <Icon className="w-5 h-5 shrink-0 fill-white" />
             </div>
 
-            <span>{label}</span>
+            <span className={` ${activeMenu ? " font-bold " : ""}`}>
+              {label}
+            </span>
           </>
         )}
       </NavLink>
     );
   };
 
-  console.log("activeMenu", activeMenu);
-
   return (
     <>
       <div
-        className={`bg-brand-dark-primary py-4 transition-all duration-300 w-[4.5rem]
+        className={`bg-brand-dark-primary py-4 transition-all duration-300 w-[4rem]
           `}
         // ${collapsed ? "w-20" : "w-56 px-3"}
       >
@@ -113,7 +106,9 @@ const Sidebar = () => {
         </div> */}
 
         {/* MENU */}
-        <div className={`flex flex-col items-center gap-4 text-white text-xs`}>
+        <div
+          className={`px-2 flex flex-col items-center gap-4 text-white text-xs`}
+        >
           {routes.map((route) => {
             console.log("route.key", route);
 
@@ -125,7 +120,6 @@ const Sidebar = () => {
                   label={route.label}
                   skey={route.key}
                   to={route.path}
-                  isActive={activeMenu === route.key}
                 />
               );
             }

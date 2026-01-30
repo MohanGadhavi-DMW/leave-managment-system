@@ -8,7 +8,9 @@ export default class ProfileAction {
   static SET_USER_PROFILE = "SET_USER_PROFILE";
   static SET_USER_PREF = "SET_USER_PREF";
   static STORAGE_ACTIVE_MENU = "ACTIVE_MENU";
+  static STORAGE_ACTIVE_CATEGORY = "ACTIVE_CATEGORY";
   static SET_ACTIVE_MENU = "SET_ACTIVE_MENU";
+  static SET_ACTIVE_CATEGORY = "SET_ACTIVE_CATEGORY";
 
   static SendOtp(data) {
     return async (dispatch, getState) => {
@@ -98,6 +100,14 @@ export default class ProfileAction {
   static setActiveMenu(menu) {
     return async (dispatch, getState) => {
       dispatch(ActionUtility.createAction(ProfileAction.SET_ACTIVE_MENU, menu));
+    };
+  }
+
+  static setActiveCategory(category) {
+    return async (dispatch, getState) => {
+      dispatch(
+        ActionUtility.createAction(ProfileAction.SET_ACTIVE_CATEGORY, category),
+      );
     };
   }
 }

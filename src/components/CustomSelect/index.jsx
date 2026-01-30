@@ -9,6 +9,7 @@ function CustomSelect({
   setSelected = () => {},
   isMultiSelect = false,
   placeholder = "Select Option",
+  menuLabel = "Select Option",
 }) {
   const [open, setOpen] = useState(false);
 
@@ -32,14 +33,14 @@ function CustomSelect({
 
   const label = isMultiSelect ? (
     isNullArray(selected) ? (
-      <span className="text-gray-400 font-medium">{placeholder}</span>
+      <span className="text-gray-500 font-medium">{placeholder}</span>
     ) : selected.length === 1 ? (
       selected[0].label
     ) : (
       `${selected[0].label.substring(0, 6)}...+ ${selected.length - 1}`
     )
   ) : isNullObject(selected) ? (
-    <span className="text-gray-400 font-medium">{placeholder}</span>
+    <span className="text-gray-500 font-medium">{placeholder}</span>
   ) : (
     selected.label
   );
@@ -50,23 +51,23 @@ function CustomSelect({
       handler={setOpen}
       allowHover
       dismiss={{
-        itemPress: false,
+        itemPress: !isMultiSelect,
       }}
     >
       <MenuHandler>
         <button
           className="min-w-[10em] min-h-[2.5em] flex items-center justify-between gap-2 px-3 py-2 text-sm
-                     border border-gray-300 rounded-lg bg-white
-                     hover:bg-gray-50 focus:outline-none"
+                     border border-gray-400 rounded-lg bg-white
+                     hover:bg-gray-50 focus:outline-none text-gray-800 font-medium"
         >
-          <span className="truncate text-gray-800 font-medium">{label}</span>
+          <span className="truncate">{label}</span>
           <AngleRightIcon className="w-4 h-4 rotate-90 fill-gray-400" />
         </button>
       </MenuHandler>
 
       <MenuList className="p-0">
         <div className="p-3 text-center border-b border-gray-300 text-sm font-medium text-gray-700">
-          Select Leave type
+          {menuLabel}
         </div>
         <div className="max-h-52 overflow-y-auto custom-scrollbar">
           {isMultiSelect && (
@@ -77,7 +78,6 @@ function CustomSelect({
               <input
                 type="checkbox"
                 checked={selected.length === options.length}
-                // onChange={onSelectedAll}
                 className="h-4 w-4 rounded-sm border-gray-300 text-brand-primary focus:ring-brand-primary cursor-pointer"
               />
               <span className="text-sm text-gray-600 group-hover:text-brand-primary">
@@ -88,7 +88,7 @@ function CustomSelect({
           {options.map((option, i) => (
             <button
               key={i}
-              className="w-full flex items-center gap-3 px-4 py-3 hover:bg-brand-100 cursor-pointer group"
+              className="w-full flex items-center gap-3 px-4 py-3 hover:bg-brand-50 cursor-pointer group"
               onClick={() => toggleOption(option)}
             >
               {isMultiSelect && (

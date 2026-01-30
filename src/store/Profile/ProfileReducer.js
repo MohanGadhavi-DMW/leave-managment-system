@@ -13,6 +13,10 @@ const initState = {
     language: "",
     notifications: true,
     activeMenu: SessionUtility.GetItem(ProfileAction.STORAGE_ACTIVE_MENU),
+    activeCategory: {
+      label: "Myself",
+      value: "myself",
+    },
   },
 };
 
@@ -48,6 +52,16 @@ export default class ProfileReducer {
           ...state,
           userPref: newUserPref,
         };
+      case ProfileAction.SET_ACTIVE_CATEGORY: {
+        const newUserPref = {
+          ...state.userPref,
+          activeCategory: action.payload,
+        };
+        return {
+          ...state,
+          userPref: newUserPref,
+        };
+      }
       default:
         return state;
     }

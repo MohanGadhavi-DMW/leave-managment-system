@@ -10,6 +10,7 @@ import AngleRightIcon from "@/assets/icons/angle-small-right.svg?react";
 export default function CustomTable({
   columns,
   data,
+  title = "",
   filters = <></>,
   isSorting = false,
 }) {
@@ -30,7 +31,10 @@ export default function CustomTable({
       {/* filters & pagination */}
       <div className="p-4 border-b border-gray-300 flex items-center justify-between gap-4 flex-wrap">
         {/* filters */}
-        <div className="flex items-center gap-4">{filters}</div>
+        <div className="flex-1 h-full flex items-center gap-4">
+          <h2 className="text-lg font-medium">{title}</h2>
+          {filters}
+        </div>
 
         {/* pagination */}
         <div className="flex items-center gap-4">
@@ -44,7 +48,7 @@ export default function CustomTable({
                 table.getState().pagination.pageSize,
               table.getFilteredRowModel().rows.length,
             )}{" "}
-            Of {table.getFilteredRowModel().rows.length} filtered results
+            of {table.getFilteredRowModel().rows.length} filtered results
           </span>
           <div className="flex gap-1">
             <button
@@ -77,7 +81,7 @@ export default function CustomTable({
                     isSorting ? "cursor-pointer hover:bg-blue-gray-50" : ""
                   }  p-4 transition-colors`}
                 >
-                  <p className="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
+                  <p className="antialiased text-sm text-black flex items-center justify-between gap-2 font-normal leading-none opacity-70">
                     {header.isPlaceholder
                       ? null
                       : flexRender(
@@ -92,10 +96,10 @@ export default function CustomTable({
         </thead>
         <tbody>
           {table.getRowModel().rows.map((row) => (
-            <tr key={row.id}>
+            <tr key={row.id} className="hover:bg-gray-50">
               {row.getVisibleCells().map((cell) => (
                 <td key={cell.id} className="p-4 border-b border-blue-gray-50">
-                  <div className="font-normal text-sm text-gray-700">
+                  <div className="font-normal text-sm text-black">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </div>
                 </td>

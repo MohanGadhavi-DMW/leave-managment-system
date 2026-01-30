@@ -13,6 +13,8 @@ import BellIcon from "@/assets/icons/bell.svg?react";
 import SearchIcon from "@/assets/icons/search.svg?react";
 import AngleRightIcon from "@/assets/icons/angle-small-right.svg?react";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import ProfileAction from "@/store/Profile/ProfileAction";
 
 const menuList = [
   {
@@ -30,7 +32,17 @@ const menuList = [
 ];
 
 const Navbar = (props) => {
-  const [selectedMenu, setSelectedMenu] = useState(menuList[0]);
+  // const [selectedMenu, setSelectedMenu] = useState(menuList[0]);
+
+  const dispatch = useDispatch();
+  const profile = useSelector(
+    (state) => state.profile?.userPref?.activeCategory,
+  );
+
+  const handleSelectCategory = (category) => {
+    dispatch(ProfileAction.setActiveCategory(category));
+  };
+
   return (
     <div className="h-16 w-full shrink-0 bg-brand-primary flex items-center text-white fixed top-0 left-0 z-30">
       {/* LEFT: LOGO */}
@@ -41,10 +53,10 @@ const Navbar = (props) => {
       {/* CENTER: SEARCH */}
       <div className="px-6 flex-1 flex justify-start">
         <div className="flex-1 flex items-center ">
-          <Menu value={selectedMenu}>
+          <Menu value={profile.value}>
             <MenuHandler>
-              <button className="flex items-center gap-2">
-                {selectedMenu?.label ?? "Select Menu"}{" "}
+              <button className="flex items-center gap-2 hover:bg-white/10 px-2 py-1 rounded-lg focus-within:outline focus-within:outline-[2px] focus-within:outline-white focus-within:border-none">
+                {profile?.label ?? "Select Menu"}{" "}
                 <AngleRightIcon className="w-6 h-6 rotate-90 fill-white" />
               </button>
             </MenuHandler>
@@ -53,7 +65,10 @@ const Navbar = (props) => {
                 <MenuItem
                   key={menu.value}
                   value={menu.value}
-                  onClick={() => setSelectedMenu(menu)}
+                  onClick={() => handleSelectCategory(menu)}
+                  className={
+                    menu.value === profile.value ? "text-blue-500" : ""
+                  }
                 >
                   {menu.label}
                 </MenuItem>

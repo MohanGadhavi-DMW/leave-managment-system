@@ -218,7 +218,7 @@ const statusOptions = [
   { label: "Rejected", value: "rejected" },
 ];
 
-function LeaveRequests() {
+function TeamLeaveRequests() {
   const [selectedLeave, setSelectedLeave] = useState([]);
   const [selectedStatus, setSelectedStatus] = useState({});
 
@@ -231,14 +231,15 @@ function LeaveRequests() {
         selected={selectedLeave}
         setSelected={setSelectedLeave}
         isMultiSelect
-        placeholder="Select Leave"
+        placeholder="Leave Type"
+        menuLabel="Select Leave Type"
       />
 
       <CustomSelect
         options={statusOptions}
         selected={selectedStatus}
         setSelected={setSelectedStatus}
-        placeholder="Select Status"
+        placeholder="Status"
       />
 
       <div className="relative">
@@ -247,7 +248,7 @@ function LeaveRequests() {
         </div>
         <input
           type="text"
-          className="block w-full p-1.5 pl-8 min-h-[2.5em] text-sm font-medium text-gray-900 border border-gray-300 rounded-lg bg-white focus:ring-brand-primary placeholder-gray-400"
+          className="block w-full p-2 pl-8 min-h-[2.5em] text-sm font-medium text-gray-900 border border-gray-400 rounded-lg bg-white focus:ring-brand-primary placeholder-gray-400"
           placeholder="Search"
         />
       </div>
@@ -261,13 +262,16 @@ function LeaveRequests() {
           <p className="text-sm font-semibold text-black">
             Filters applied successfully:{" "}
           </p>
-          <p className="text-[0.8em] text-gray-800">
+          <p className="text-[0.8em] text-gray-600">
             Designation- Software engineering / Branch- Powai / City- Mumbai /
-            State-Maharashtra / Current Period: Jan 2024 - Jan 2025
+            State-Maharashtra /{" "}
+            <span className="text-black">
+              Current Period: Jan 2024 - Jan 2025
+            </span>
           </p>
         </div>
         <div className="w-[35%] shrink-0 flex items-end gap-2 justify-end pb-1 text-gray-800 text-[0.8em]">
-          <InfoIcon className="w-4 h-4 mb-[3px]" />
+          <InfoIcon className="w-3.5 h-3.5 mb-[4px]" />
           <span>Action needed : Check Status 12 Leave Requests Pending</span>
         </div>
       </div>
@@ -279,4 +283,4 @@ function LeaveRequests() {
   );
 }
 
-export default LeaveRequests;
+export default TeamLeaveRequests;
